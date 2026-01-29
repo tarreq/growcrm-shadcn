@@ -17,6 +17,7 @@ import {
   IconSearch,
   IconSettings,
   IconUsers,
+  IconUserSquareRounded,
 } from "@tabler/icons-react"
 
 import { NavDocuments } from "@/components/nav-documents"
@@ -131,22 +132,17 @@ const data = {
       icon: IconSearch,
     },
   ],
-  documents: [
+  users: [
     {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
+      name: "Clients",
+      url: "/clients",
+      icon: IconUsers,
     },
     {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
-    },
+      name: "Employees",
+      url: "/employees",
+      icon: IconUserSquareRounded,
+    }
   ],
 }
 
@@ -162,7 +158,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <span className="text-base font-semibold">GrowCRM</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -170,7 +166,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        <NavDocuments items={data.users} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
