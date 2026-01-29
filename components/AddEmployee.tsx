@@ -16,8 +16,11 @@ import {
 } from "@/components/ui/sheet"
 import { toast } from "sonner"
 import { IconPlus } from "@tabler/icons-react"
+import { useRouter } from "next/navigation"
+import { addEmployee } from "@/app/employees/actions"
 
 export function AddEmployee() {
+    const router = useRouter()
     const [open, setOpen] = useState(false)
     const [loading, setLoading] = useState(false)
 
@@ -26,23 +29,17 @@ export function AddEmployee() {
         setLoading(true)
 
         const formData = new FormData(e.currentTarget)
+        const result = await addEmployee(formData)
 
-        try {
-            const { addEmployee } = await import("@/app/employees/actions")
-            const result = await addEmployee(formData)
+        setLoading(false)
 
-            setLoading(false)
-
-            if (!result.success) {
-                toast.error(result.error || "Failed to add employee")
-            } else {
-                toast.success("Employee added successfully")
-                setOpen(false)
-            }
-        } catch (error) {
-            setLoading(false)
+        if (!result.success) {
             toast.error("Failed to add employee")
-            console.error(error)
+            console.error(result.error)
+        } else {
+            router.refresh()
+            toast.success("Employee added successfully")
+            setOpen(false)
         }
     }
 

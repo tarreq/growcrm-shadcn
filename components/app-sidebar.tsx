@@ -36,8 +36,8 @@ import {
 
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Admin",
+    email: "admin@growcrm.com",
     avatar: "/avatars/shadcn.jpg",
   },
   navMain: [

@@ -357,6 +357,11 @@ export function DataTable<TData, TValue>({
     pageIndex: 0,
     pageSize: 10,
   })
+
+  // Sync data state when initialData prop changes
+  React.useEffect(() => {
+    setData(initialData)
+  }, [initialData])
   const sortableId = React.useId()
   const sensors = useSensors(
     useSensor(MouseSensor, {}),

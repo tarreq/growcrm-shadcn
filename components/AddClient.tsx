@@ -17,6 +17,7 @@ import {
 import { toast } from "sonner"
 import { IconPlus } from "@tabler/icons-react"
 import { useRouter } from 'next/navigation';
+import { addClient } from "@/app/clients/actions"
 
 export function AddClient() {
     const router = useRouter();
@@ -28,25 +29,17 @@ export function AddClient() {
         setLoading(true)
 
         const formData = new FormData(e.currentTarget)
+        const result = await addClient(formData)
 
-        try {
-            const { addClient } = await import("@/app/clients/actions")
-            const result = await addClient(formData)
+        setLoading(false)
 
-            setLoading(false)
-
-            if (!result.success) {
-                toast.error(result.error || "Failed to add client")
-            } else {
-                router.refresh();
-                toast.success("Client added successfully")
-                setOpen(false)
-
-            }
-        } catch (error) {
-            setLoading(false)
+        if (!result.success) {
             toast.error("Failed to add client")
-            console.error(error)
+            console.error(result.error)
+        } else {
+            router.refresh();
+            toast.success("Client added successfully")
+            setOpen(false)
         }
     }
 
